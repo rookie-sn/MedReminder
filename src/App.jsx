@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import pillIcon from './assets/pill.png'
 import Header from './componenets/Header';
+import MedicineForm from './componenets/MedicineForm';
+import AlarmOverlay from './componenets/AlarmOverlay';
+import ReminderList from './componenets/ReminderList';
 
 const getTodayString = () => {
   const d = new Date()
