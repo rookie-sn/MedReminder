@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import pillIcon from './assets/pill.png'
 import Header from './componenets/Header';
 
@@ -11,19 +11,13 @@ const getTodayString = () => {
 }
 
 export default function App() {
-    
   const [meds, setMeds] = useState(() => {
     const saved = localStorage.getItem('medReminders')
     return saved ? JSON.parse(saved) : []
   })
-
   const [name, setName] = useState('')
   const [date, setDate] = useState(getTodayString())
   const [time, setTime] = useState('')
-  const [lastAlarmed, setLastAlarmed] = useState('')
-  const [activeAlarmMed, setActiveAlarmMed] = useState(null)
-  const alarmStopRef = useRef(null)
-
   useEffect(() => {
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission()
