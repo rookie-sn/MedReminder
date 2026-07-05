@@ -23,4 +23,38 @@ export default function App() {
       Notification.requestPermission()
     }
   }, [])
-}
+
+  const startAlarmSound = () => {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)() // webaudio API
+      const playBeep = () => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(900, ctx.currentTime) // (900Hz)
+        gain.gain.setValueAtTime(0.6, ctx.currentTime) // 60% volume
+        osc.start()
+        osc.stop(ctx.currentTime + 0.3) // lasts for 300ms
+      }
+      playBeep() // loop
+      const intervalId = setInterval(playBeep, 800)
+      return () => {
+        clearInterval(intervalId)
+        ctx.close()
+      }
+    } catch (err) {
+      console.error('AudioContext failed:', err)
+      return () => {}
+    }}
+
+  useEffect(() => {
+    if (activeAlarmMed) {alarmStopRef.current = startAlarmSound()
+    }
+    return () => {
+      if (alarmStopRef.current) {alarmStopRef.current()
+        alarmStopRef.current = null
+      }}
+  }, [activeAlarmMed])}
