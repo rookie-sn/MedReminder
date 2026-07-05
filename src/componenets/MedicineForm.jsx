@@ -5,9 +5,7 @@ export default function MedicineForm({ name, setName, date, setDate, time, setTi
         <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Medicine Name</label>
         <input type="text" placeholder="e.g., Aspirin" value={name} onChange={(e) => setName(e.target.value)} 
         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm"
-          required
-        />
-      </div>
+          required/></div>
             <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Reminder Date</label>
